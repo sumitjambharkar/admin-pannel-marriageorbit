@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { db,storage,auth} from './firebase'
+import { db,storage} from './firebase'
 import Nav from './Nav'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -94,12 +94,31 @@ const Single = () => {
                 about: "", aboutFamily: "", address: "", brother: "", sister: "", city: "", collage: "",
                 community: "", country: "", family: "", familyLive: "", fatherWork: "", height: "", horoscope: "",
                 income: "", manglik: "", maritalStatus: "", motherWork: "", qaulification: "", religion: "",
-                state: "", tounge: "", work: ""
+                state: "", tounge: "", work: "",habit:"",asset:"",language:"",blood:""
             })
         } else {
             text = "You canceled!";
         }
     }
+
+    const extraData = () => {
+      let text = "Extra Data";
+      if (window.confirm(text) === true) {
+          text = "You pressed OK!";
+          db.doc(`users/${user.id}`).set({
+            displayName: data.displayName, email: data.email, uid: data.uid,
+            profile: data.profile, gender: data.gender, createdAt: data.createdAt, number: data.number,
+            birth: data.birth, isOnline: true,
+            about:data.about, aboutFamily:data.aboutFamily, address:data.address, brother:data.brother, sister:data.sister, city:data.city, collage:data.collage,
+            community:data.community, country:data.country, family:data.family, familyLive:data.familyLive, fatherWork:data.fatherWork, height:data.height, horoscope:data.horoscope,
+            income:data.income, manglik:data.manglik, maritalStatus: data.maritalStatus, motherWork:data.motherWork, qaulification:data.qaulification, religion:data.religion,
+            state:data.state, tounge:data.tounge, work:data.work,image:data.image,
+            habit:"",asset:"",language:"",blood:""
+        })
+      } else {
+          text = "You canceled!";
+      }
+  }
 
     const deleteData = () => {
         let text = "Delete Data";
@@ -270,6 +289,7 @@ const Single = () => {
                                             <button style={{ borderRadius: "24px", border: "1px solid #aeaeae" }} onClick={()=>updateData(data)}>Update Data</button>
                                             <button style={{ borderRadius: "24px", border: "1px solid #aeaeae" }} onClick={editData}>Reset Data</button>
                                             <button style={{ borderRadius: "24px", border: "1px solid #aeaeae" }} onClick={deleteData}>Delete User</button>
+                                            <button style={{ borderRadius: "24px", border: "1px solid #aeaeae" }} onClick={extraData}>Extra</button>
                                             </div>
                                         </div>
                                         <div class="card-body pt-0">
