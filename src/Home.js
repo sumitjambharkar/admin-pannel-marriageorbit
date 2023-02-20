@@ -145,7 +145,7 @@ const Home = () => {
                                                     <div class="col-lg-4">
                                                         <div class="card shadow-sm">
                                                             <div class="card-header bg-transparent text-center">
-                                                                <img class="profile_img" src={doc.image} />
+                                                                <img class="profile_img" src={doc.image} alt="" />
                                                                 <h3>{doc.displayName}</h3>
                                                             </div>
                                                             <div class="card-body">

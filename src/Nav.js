@@ -1,11 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { auth } from './firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, db } from './firebase';
+import useAuth from '../src/context/useAuth'
 
 const Nav = () => {
+    const navigate = useNavigate()
+    const { user, setName } = useAuth()
+    const [noti, setNoti] = useState([])
+    console.log(user.uid);
+
     const logout = () => {
         auth.signOut()
     }
+
+    useEffect(() => {
+        db.collection("supportLastMsge").onSnapshot((snapshot) => (
+            setNoti(snapshot.docs.map((doc) => doc.data()))
+        ))
+    }, [])
+
+    const notification = noti.filter((doc) => (doc.to === user.uid && doc.unread))
+    console.log(notification);
+
+    const GoProfile = () => {
+        let person = prompt("Please enter your name");
+        if (person != null) {
+            navigate({ pathname: "/send-profile" })
+            setName(person)
+        }
+
+    }
+
+
     return (
         <>
             <section id="container">
@@ -21,26 +47,28 @@ const Nav = () => {
 
                     <div class="top-nav clearfix">
 
-    <ul class="nav pull-right top-menu">
-        
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false" href="#">
-                <img alt="" src="images/2.png"/>
-                <span class="username">{auth.currentUser.email}</span>
-                <b class="caret"></b>
-            </a>
-            
-            <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
-            </ul>
-        </li>
-       
-       
-    </ul>
-    
-</div>
+                        <ul class="nav pull-right top-menu">
+
+                            <li class="dropdown">
+                               
+                                <Link to="/chat" >Message{notification.length ? <button className="unread">{notification.length}</button> : null}</Link>
+                                <a data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false" href="#">
+                                    <img alt="" src="images/2.png" />
+                                    <span class="username">{auth.currentUser.email}</span>
+                                    <b class="caret"></b>
+                                </a>
+
+                                <ul class="dropdown-menu extended logout">
+                                    <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                                    <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                                    <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
                 </header>
 
                 <aside>
@@ -62,7 +90,7 @@ const Nav = () => {
                                     </Link>
 
                                 </li>
-                                
+
                                 <li class="sub-menu">
                                     <Link to="/male">
                                         <i class="fa fa-envelope"></i>
@@ -71,28 +99,35 @@ const Nav = () => {
 
                                 </li>
                                 <li class="sub-menu">
-                                  <Link to="/female">
+                                    <Link to="/female">
                                         <i class="fa fa-envelope"></i>
                                         <span>Female</span>
                                     </Link>
 
                                 </li>
                                 <li class="sub-menu">
-                                <Link to="/total">
+                                    <Link to="/total">
                                         <i class=" fa fa-bar-chart-o"></i>
                                         <span>Total</span>
-                                        </Link>
+                                    </Link>
 
                                 </li>
                                 <li class="sub-menu">
-                                    <a href="javascript:;">
-                                        <i class="fa fa-glass"></i>
-                                        <span>Extra</span>
+                                    <Link to="/chat">
+                                        <i class=" fa fa-bar-chart-o"></i>
+                                        <span>Chat</span>
+                                    </Link>
+
+                                </li>
+                                <li class="sub-menu">
+                                    <a style={{ color: "white" }} onClick={GoProfile}>
+                                        <i class=" fa fa-bar-chart-o"></i>
+                                        <span>Send Profile</span>
                                     </a>
 
                                 </li>
                                 <li>
-                                    <a style={{color:"white",cursor: "pointer"}} onClick={logout}>
+                                    <a style={{ color: "white", cursor: "pointer" }} onClick={logout}>
                                         <i class="fa fa-user"></i>
                                         <span>Logout</span>
                                     </a>

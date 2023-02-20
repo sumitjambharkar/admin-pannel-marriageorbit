@@ -10,8 +10,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Male from './Male';
 import Female from './Female';
 import Single from './Single';
-import Update from './Update';
 import Total from './Total';
+import Chat from './Chat';
+import ChatUser from './ChatUser';
+import SendProfile from './SendProfile';
 
 
 function App() {
@@ -38,6 +40,9 @@ function App() {
         <Route path='/addprofile' element={<AddProfile/>}/>
         <Route path='/single/:id' element={<Single/>}/>
         <Route path='/total' element={<Total/>}/>
+        <Route path='/chat' element={<ChatUser/>}/>
+        <Route path='/chat/:id' element={<Chat/>}/>
+        <Route path='/send-profile' element={<SendProfile/>}/>
         </>
       }
       </Routes>
