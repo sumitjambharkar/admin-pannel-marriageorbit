@@ -3357,6 +3357,10 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
       position: fixed;
       top: 0px;
       z-index: 1005;
+      display: flex;
+      justify-content: space-around;
+    align-items: center;
+    
   }
   .sidebar-toggle-box{
       right: 10px;
@@ -3700,3 +3704,40 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     border: 1px solid #1976d2;
   }
   
+  .menu {
+    display: none;
+  }
+
+  @media (max-width:500px) {
+    .menu {
+        display: block;
+        z-index: 2;
+       
+    }
+    .list {
+        background-color: #000000;
+        color: antiquewhite;
+        width: 100vw;
+        height:auto;
+        position: absolute;
+        margin-left: -255px;
+    }
+    .nav {
+        padding: 1px;
+    font-size: 24px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    }
+    .list .nav li {
+        border: 1px solid white;
+        padding: 8px;
+        color: #fff;;
+    }
+    .list .nav li a {
+        color: #fff;
+    }
+
+    
+    
+}

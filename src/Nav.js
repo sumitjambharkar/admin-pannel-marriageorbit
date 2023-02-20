@@ -7,12 +7,13 @@ const Nav = () => {
     const navigate = useNavigate()
     const { user, setName } = useAuth()
     const [noti, setNoti] = useState([])
+    const [show,setShow] = useState("")
     console.log(user.uid);
 
     const logout = () => {
         auth.signOut()
     }
-
+    
     useEffect(() => {
         db.collection("supportLastMsge").onSnapshot((snapshot) => (
             setNoti(snapshot.docs.map((doc) => doc.data()))
@@ -30,7 +31,7 @@ const Nav = () => {
         }
 
     }
-
+   
 
     return (
         <>
@@ -41,8 +42,68 @@ const Nav = () => {
                         <Link to="/" class="logo">
                             Admin
                         </Link>
+                        <div className='menu'>
+                        {!show? <><span onClick={()=>setShow(!show)}><i style={{color:"white",fontSize:"24px"}} class="fa fa-bars"></i></span>
+                        </>:<span onClick={()=>setShow(!show)}><i style={{color:"white",fontSize:"28px"}} class="fa fa-times"></i></span>}
+
+                        {show? <><div  className='list'>
+                            <div  className='nav'>
+                            <li><Link class="active" to="/">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span>Dashboard</span>
+                                    </Link></li>
+                            <li><Link to="/addprofile">
+                                        <i class="fa fa-book"></i>
+                                        <span>Add New Profile</span>
+                                    </Link></li>
+                                    <li class="sub-menu">
+                                    <Link to="/male">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Male</span>
+                                    </Link>
+
+                                </li>
+                                <li >
+                                    <Link to="/female">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Female</span>
+                                    </Link>
+
+                                </li>
+                                <li >
+                                    <Link to="/total">
+                                        <i class=" fa fa-bar-chart-o"></i>
+                                        <span>Total</span>
+                                    </Link>
+
+                                </li>
+                                <li >
+                                    <Link to="/chat">
+                                        <i class=" fa fa-bar-chart-o"></i>
+                                        <span>Chat</span>
+                                    </Link>
+
+                                </li>
+                                <li >
+                                    <a style={{ color: "white" }} onClick={GoProfile}>
+                                        <i class=" fa fa-bar-chart-o"></i>
+                                        <span>Send Profile</span>
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a style={{ color: "white", cursor: "pointer" }} onClick={logout}>
+                                        <i class="fa fa-user"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </div>
+                        </div></>:null}
+                        </div>
 
                     </div>
+
+                    
 
 
                     <div class="top-nav clearfix">

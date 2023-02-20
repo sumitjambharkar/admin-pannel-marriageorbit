@@ -56,7 +56,7 @@ const Home = () => {
                         <div class="col-md-3 market-update-gd">
                             <div class="market-update-block clr-block-2">
                                 <div class="col-md-4 market-update-right">
-                                    <i class="fa fa-eye"> </i>
+                                <i class="fa fa-shopping-cart"></i>
                                 </div>
                                 <div onClick={totalCall} class="col-md-8 market-update-left">
                                     <h4>Total User</h4>
@@ -82,7 +82,7 @@ const Home = () => {
                         <div class="col-md-3 market-update-gd">
                             <div class="market-update-block clr-block-3">
                                 <div class="col-md-4 market-update-right">
-                                    <i class="fa fa-usd"></i>
+                                    <i class="fa fa-users"></i>
                                 </div>
                                 <div onClick={femaleCall} class="col-md-8 market-update-left">
                                     <h4>Female</h4>
